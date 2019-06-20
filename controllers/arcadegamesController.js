@@ -77,8 +77,8 @@ exports.update = (req, res) => {
       res.redirect(`/arcadegames/${req.body.id}`);
     })
     .catch(err => {
-      res.redirect(`/arcadegames/${req.body.id}/edit`);
       req.flash('error', `ERROR: ${err}`);
+      res.redirect(`/arcadegames/${req.body.id}/edit`);
     });
 };
 
