@@ -91,7 +91,7 @@ exports.destroy = (req, res) => {
       res.redirect('/arcadegames');
     })
     .catch(err => {
-      res.redirect(`/arcadegames`);
       req.flash('error', `ERROR: ${err}`);
+      res.redirect(`/arcadegames`);
     });
 };
