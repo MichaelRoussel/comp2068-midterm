@@ -22,3 +22,5 @@ const ArcadeGameSchema = new mongoose.Schema({
 }, {
     timestamps: true
 });
+
+module.exports= mongoose.model('ArcadeGame', ArcadeGameSchema);

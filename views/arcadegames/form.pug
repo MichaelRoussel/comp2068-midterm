@@ -1,4 +1,4 @@
-form(action=(arcadegame ? `/arcadegames/update` : "/arcadegame"), method="POST")
+form(action=(arcadegame ? `/arcadegames/update` : "/arcadegames"), method="POST")
   if arcadegame
     input(type="hidden", name="id", value=arcadegame.id)
 
@@ -9,8 +9,8 @@ form(action=(arcadegame ? `/arcadegames/update` : "/arcadegame"), method="POST")
   .form-group
     label Rating
     select.form-control(name="arcadegame[rating]", required)
-      each rating in ['DRAFT', 'PUBLISHED']
-        option(value=rating, selected=(arcadegame && arcadegame.rating === rating))= rating)
+      each rating in ['Trash', 'Okay', 'Good', 'Great', 'Amazing', 'Ratchet & Clank']
+        option(value=rating, selected=(arcadegame && arcadegame.rating === rating))= rating
 
   .form-group
     label Description
@@ -21,7 +21,7 @@ form(action=(arcadegame ? `/arcadegames/update` : "/arcadegame"), method="POST")
     label Genre
     select.form-control(name="arcadegame[genre]", required)
       each genre in  ['fighting', 'sports', 'strategy', 'puzzle', 'arcade', 'platformer', 'other']
-        option(value=genre, selected=(arcadegame && arcadegame.genre === genre))= genre)
+        option(value=genre, selected=(arcadegame && arcadegame.genre === genre))= genre
   
   .form-group
     button.btn.btn-dark(type="submit") Submit

@@ -11,24 +11,25 @@ exports.index = (req, res) => {
       })
       .catch(err => {
         res.redirect('/');
+        req.flash('error', `ERROR: ${err}`);
       });
 };
 
 exports.show = (req, res) => {
   ArcadeGame.findOne({
-      _id: req.params.id,
+    _id: req.params.id,
   })
   .then(arcadegame => {
-      res.render('arcadegames/show', {
-      arcadegame: arcadegame,
-      title: arcadegame.title
-      });
+    res.render('arcadegames/show', {
+    arcadegame: arcadegame,
+    title: arcadegame.title
+    });
   })
   .catch(err => {
-      res.redirect('/');
+    res.redirect('/');
+    req.flash('error', `ERROR: ${err}`);
   });
 };
-
 
 exports.new = (req, res) => {
   res.render('arcadegames/new', {
@@ -37,7 +38,7 @@ exports.new = (req, res) => {
 };
 
 exports.edit = (req, res) => {
-  arcadegame.findOne({
+  ArcadeGame.findOne({
       _id: req.params.id,
     })
     .then(arcadegame => {
@@ -53,29 +54,31 @@ exports.edit = (req, res) => {
 };
 
 exports.create = (req, res) => {
-  req.isAuthenticated();
-
   req.body.arcadegame.author = req.session.userId;
   ArcadeGame.create(req.body.arcadegame)
     .then(() => {
+      req.flash('success', 'The game was created successfully.');
       res.redirect('/arcadegames');
     })
     .catch(err => {
+      req.flash('error', `ERROR: ${err}`);
       res.redirect('/arcadegames/new');
     });
 };
 
 exports.update = (req, res) => {
-  arcadegame.updateOne({
+  ArcadeGame.updateOne({
       _id: req.body.id,
     }, req.body.arcadegame, {
       runValidators: true
     })
     .then(() => {
+      req.flash('success', 'The game was updated successfully.');
       res.redirect(`/arcadegames/${req.body.id}`);
     })
     .catch(err => {
       res.redirect(`/arcadegames/${req.body.id}/edit`);
+      req.flash('error', `ERROR: ${err}`);
     });
 };
 
@@ -84,9 +87,11 @@ exports.destroy = (req, res) => {
       _id: req.body.id,
     })
     .then(() => {
+      req.flash('success', 'The game was deleted successfully.');
       res.redirect('/arcadegames');
     })
     .catch(err => {
       res.redirect(`/arcadegames`);
+      req.flash('error', `ERROR: ${err}`);
     });
 };

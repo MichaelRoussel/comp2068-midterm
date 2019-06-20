@@ -9,13 +9,19 @@ block content
         thead
           tr
             th Title
-            th
+            th Rating
+            th Description
+            th Genre
+            th Actions
         
         tbody
           each arcadegame in arcadegames
             tr
               td
                 a(href=`/arcadegames/${arcadegame.id}`)= arcadegame.title
+              td= arcadegame.rating
+              td= arcadegame.description
+              td= arcadegame.genre
               td
                 a(href=`/arcadegames/${arcadegame.id}/edit`) edit
                 = ` | `
