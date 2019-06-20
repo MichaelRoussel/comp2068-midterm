@@ -1,15 +1,27 @@
-form(action=(resource ? `/resources/update` : "/resources"), method="POST")
-  if resource
-    input(type="hidden", name="id", value=resource.id)
+form(action=(arcadegame ? `/arcadegames/update` : "/arcadegame"), method="POST")
+  if arcadegame
+    input(type="hidden", name="id", value=arcadegame.id)
 
   .form-group
     label Title
-    input.form-control(name="resource[title]", required, value=(resource ? resource.title : null))
+    input.form-control(name="arcadegame[title]", required, value=(arcadegame ? arcadegame.title : null))
 
   .form-group
-    label Content
-    textarea.form-control(name="resource[content]")
-      = resource ? resource.content : null
+    label Rating
+    select.form-control(name="arcadegame[rating]", required)
+      each rating in ['DRAFT', 'PUBLISHED']
+        option(value=rating, selected=(arcadegame && arcadegame.rating === rating))= rating)
+
+  .form-group
+    label Description
+    textarea.form-control(name="arcadegame[description]")
+      = arcadegame ? arcadegame.description : null
+
+  .form-group
+    label Genre
+    select.form-control(name="arcadegame[genre]", required)
+      each genre in  ['fighting', 'sports', 'strategy', 'puzzle', 'arcade', 'platformer', 'other']
+        option(value=genre, selected=(arcadegame && arcadegame.genre === genre))= genre)
   
   .form-group
     button.btn.btn-dark(type="submit") Submit
